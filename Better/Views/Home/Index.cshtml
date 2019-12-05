@@ -2,13 +2,15 @@
     ViewBag.Title = "Home Page";
 }
 
+@using Better.Models
+
 <div class="jumbotron text-center">
     <h1>Welcome to Better.</h1>
     <p class="lead">
         @{
-            if (Session["IsLoggedIn"] != null)
+            if (SessionData.Get<bool>("IsLoggedIn"))
             {
-                <p class="text-capitalize"> Hello, @Session["LoggedUsername"]</p>
+                <p class="text-capitalize"> Hello, @SessionData.Get<string>("LoggedUsername")</p>
             }
             else
             {

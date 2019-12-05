@@ -4,6 +4,9 @@
     ViewBag.Title = "Signup";
 }
 
+@using Better.Models
+@using Better.Controllers
+
 <h2 class="bg-info"> Sign up and be Better!</h2>
 
 <form method="post">
@@ -14,16 +17,16 @@
             var username = Request.Form["Username"];
             var password = Request.Form["Password"];
 
-            Better.Controllers.UserController.AddNewUser(new Better.Models.UserModel
+            UserController.AddNewUser(new Better.Models.UserModel
             {
                 Username = username,
                 Passowrd = password,
                 Email = Request.Form["Email"]
             });
 
-            Session["IsLoggedIn"] = true;
-            Session["LoggedUsername"] = username;
-            Session["LoggedPassword"] = password;
+            SessionData.Put("IsLoggedIn", true);
+            SessionData.Put("LoggedUsername", username);
+            SessionData.Put("LoggedPassword", password);
         }
     }
 
