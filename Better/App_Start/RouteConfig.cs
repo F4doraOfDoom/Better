@@ -14,8 +14,20 @@ namespace Better
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Signup",
+                url: "Signup",
+                defaults: new { controller = "User", action = "Signup", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Login",
+                url: "Login",
+                defaults: new { controller = "User", action = "Login", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
