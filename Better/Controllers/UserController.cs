@@ -9,7 +9,7 @@ namespace Better.Controllers
 {
     public class UserController : Controller
     {
-        public static List<UserModel> Users { get; set; } = new List<UserModel>();
+        public static List<User> Users { get; set; } = new List<User>();
 
         public ActionResult Login()
         {
@@ -22,7 +22,7 @@ namespace Better.Controllers
             return View();
         }
 
-        public static void AddNewUser(UserModel user)
+        public static void AddNewUser(User user)
         {
             Users.Add(user);
         }
