@@ -8,9 +8,9 @@ using Better.Models;
 
 namespace Better.Models
 {
-    public class MyDBContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public MyDBContext()
+        public ApplicationDbContext()
         {
 
         }

@@ -2,6 +2,8 @@
     ViewBag.Title = "Home Page";
 }
 
+@model IEnumerable<User>
+
 @using Better.Models
 
 <div class="jumbotron text-center">
@@ -16,7 +18,14 @@
             {
                 <p class="text-capitalize"> Why not sign up and become part of the world's leading social network?</p>
             }
+        
+            <h2>Currently Logged In:</h2>
+            foreach (var user in Model)
+            {
+                @Html.ActionLink(user.Username, "ShowUsers", "User");
+            }
         }
+
     </p>
 </div>
 

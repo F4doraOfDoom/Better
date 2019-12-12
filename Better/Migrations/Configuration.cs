@@ -5,14 +5,14 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Better.Models.MyDBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Better.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Better.Models.MyDBContext context)
+        protected override void Seed(Better.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

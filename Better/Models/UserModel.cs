@@ -10,9 +10,12 @@ namespace Better.Models
 {
     public class User
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(64)]
         public string Username { get; set; }
-        public string Passowrd { get; set; }
+        public string Password { get; set; }
         public string Email { get; set; }
 
         public ICollection<Post> Posts { get; set; }

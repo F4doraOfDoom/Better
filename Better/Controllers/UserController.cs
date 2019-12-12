@@ -9,22 +9,11 @@ namespace Better.Controllers
 {
     public class UserController : Controller
     {
-        public static List<User> Users { get; set; } = new List<User>();
 
-        public ActionResult Login()
-        {
-            
-            return View();
-        }
-
-        public ActionResult Signup()
+        public ActionResult ShowUsers(string username)
         {
             return View();
         }
 
-        public static void AddNewUser(User user)
-        {
-            Users.Add(user);
-        }
     }
 }
