@@ -160,33 +160,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912081113303_initial.cs" />
-    <Compile Include="Migrations\201912081113303_initial.designer.cs">
-      <DependentUpon>201912081113303_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912081116572_changed_user_name.cs" />
-    <Compile Include="Migrations\201912081116572_changed_user_name.designer.cs">
-      <DependentUpon>201912081116572_changed_user_name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912121012404_added_posts.cs" />
-    <Compile Include="Migrations\201912121012404_added_posts.designer.cs">
-      <DependentUpon>201912121012404_added_posts.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912121016516_changed_user_psots.cs" />
-    <Compile Include="Migrations\201912121016516_changed_user_psots.designer.cs">
-      <DependentUpon>201912121016516_changed_user_psots.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912121021390_added_to_dbcontext.cs" />
-    <Compile Include="Migrations\201912121021390_added_to_dbcontext.designer.cs">
-      <DependentUpon>201912121021390_added_to_dbcontext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912121023062_changed_user_post2.cs" />
-    <Compile Include="Migrations\201912121023062_changed_user_post2.designer.cs">
-      <DependentUpon>201912121023062_changed_user_post2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912121031058_changed_user_post_relationship.cs" />
-    <Compile Include="Migrations\201912121031058_changed_user_post_relationship.designer.cs">
-      <DependentUpon>201912121031058_changed_user_post_relationship.cs</DependentUpon>
+    <Compile Include="Migrations\201912121138027_initial.cs" />
+    <Compile Include="Migrations\201912121138027_initial.designer.cs">
+      <DependentUpon>201912121138027_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB.cs" />
@@ -251,26 +227,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912081113303_initial.resx">
-      <DependentUpon>201912081113303_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912081116572_changed_user_name.resx">
-      <DependentUpon>201912081116572_changed_user_name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912121012404_added_posts.resx">
-      <DependentUpon>201912121012404_added_posts.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912121016516_changed_user_psots.resx">
-      <DependentUpon>201912121016516_changed_user_psots.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912121021390_added_to_dbcontext.resx">
-      <DependentUpon>201912121021390_added_to_dbcontext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912121023062_changed_user_post2.resx">
-      <DependentUpon>201912121023062_changed_user_post2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912121031058_changed_user_post_relationship.resx">
-      <DependentUpon>201912121031058_changed_user_post_relationship.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912121138027_initial.resx">
+      <DependentUpon>201912121138027_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

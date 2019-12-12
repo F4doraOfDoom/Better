@@ -18,7 +18,7 @@ namespace Better
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Database.SetInitializer<Models.ApplicationDbContext>(null);
+            Database.SetInitializer<Models.CoolDB>(null);
         }
     }
 }

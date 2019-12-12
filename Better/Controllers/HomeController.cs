@@ -9,11 +9,11 @@ namespace Better.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext _context;
+        private CoolDB _context;
 
         public HomeController()
         {
-            _context = new ApplicationDbContext();
+            _context = new CoolDB();
         }
 
         protected override void Dispose(bool disposing)
