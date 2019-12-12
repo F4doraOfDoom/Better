@@ -167,8 +167,33 @@
     <Compile Include="Migrations\201912081116572_changed_user_name.designer.cs">
       <DependentUpon>201912081116572_changed_user_name.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912121012404_added_posts.cs" />
+    <Compile Include="Migrations\201912121012404_added_posts.designer.cs">
+      <DependentUpon>201912121012404_added_posts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912121016516_changed_user_psots.cs" />
+    <Compile Include="Migrations\201912121016516_changed_user_psots.designer.cs">
+      <DependentUpon>201912121016516_changed_user_psots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912121021390_added_to_dbcontext.cs" />
+    <Compile Include="Migrations\201912121021390_added_to_dbcontext.designer.cs">
+      <DependentUpon>201912121021390_added_to_dbcontext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912121023062_changed_user_post2.cs" />
+    <Compile Include="Migrations\201912121023062_changed_user_post2.designer.cs">
+      <DependentUpon>201912121023062_changed_user_post2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912121031058_changed_user_post_relationship.cs" />
+    <Compile Include="Migrations\201912121031058_changed_user_post_relationship.designer.cs">
+      <DependentUpon>201912121031058_changed_user_post_relationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912121040236_populate.cs" />
+    <Compile Include="Migrations\201912121040236_populate.designer.cs">
+      <DependentUpon>201912121040236_populate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Models\SessionData.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -235,6 +260,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912081116572_changed_user_name.resx">
       <DependentUpon>201912081116572_changed_user_name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912121012404_added_posts.resx">
+      <DependentUpon>201912121012404_added_posts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912121016516_changed_user_psots.resx">
+      <DependentUpon>201912121016516_changed_user_psots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912121021390_added_to_dbcontext.resx">
+      <DependentUpon>201912121021390_added_to_dbcontext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912121023062_changed_user_post2.resx">
+      <DependentUpon>201912121023062_changed_user_post2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912121031058_changed_user_post_relationship.resx">
+      <DependentUpon>201912121031058_changed_user_post_relationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912121040236_populate.resx">
+      <DependentUpon>201912121040236_populate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
