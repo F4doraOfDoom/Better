@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model ICollection<User>
+
+@using Better.Models
+
+<div class="jumbotron text-center">
+    <h1>Welcome to Better.</h1>
+    <p class="lead">
+        @{
+            if (SessionData.Get<bool>("IsLoggedIn"))
+            {
+                <p class="text-capitalize"> Hello, </p>
+            }
+            else
+            {
+                <p class="text-capitalize"> Why not sign up and become part of the world's leading social network?</p>
+            }
+
+
+            if (Model.Count() != 0)
+            {
+                <h2>Currently Logged In:</h2>
+                foreach (var user in Model)
+                {
+                    @Html.ActionLink(user.Username, "ShowUsers", "User", new { userName = user.Username }, null);
+                    <br/>
+                }
+            }
+            else
+            {
+                <h2>No Users logged in!</h2>
+            }
+
+        }
+
+
+    </p>
+</div>
+
