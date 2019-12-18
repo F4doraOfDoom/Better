@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DB.cs" />
+    <Compile Include="Models\LoginAttempt.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\SessionData.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -210,6 +211,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\ShowUsers.cshtml" />
     <Content Include="Views\User\Signup.cshtml" />
+    <Content Include="Views\Shared\DisplayUser.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,12 +7,13 @@
 @using Better.Models
 
 <div class="jumbotron text-center">
-    <h1>Welcome to Better.</h1>
+    <h1>Welcome to Better, </h1>
     <p class="lead">
         @{
-            if (SessionData.Get<bool>("IsLoggedIn"))
+            User curUser = SessionData.Get<User>("CurUser");
+            if (curUser != null)
             {
-                <p class="text-capitalize"> Hello, </p>
+                Html.RenderPartial("DisplayUser", curUser);
             }
             else
             {
@@ -22,12 +23,14 @@
 
             if (Model.Count() != 0)
             {
-                <h2>Currently Logged In:</h2>
-                foreach (var user in Model)
-                {
-                    @Html.ActionLink(user.Username, "ShowUsers", "User", new { userName = user.Username }, null);
-                    <br/>
-                }
+                    <h2>Join our list of users:</h2>
+                <div style=";height:200px;width:1000px;overflow:scroll;">
+                    @foreach (var user in Model)
+                    {
+                        @Html.ActionLink(user.Username, "ShowUsers", "User", new { userName = user.Username }, null);
+                        <br/>
+                    }
+                </div>
             }
             else
             {

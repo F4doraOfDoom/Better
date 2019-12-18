@@ -1,0 +1,58 @@
+﻿@model Better.Models.LoginAttempt
+
+@using Better.Models
+
+
+@{
+    var curUser = SessionData.Get<User>("CurUser");
+    if (Model != null) // if model is null, user hasn't tried to login yet.
+    {
+        if (Model.Success == false) // user logged in, but credentials are wrong
+        {
+            <h2 style="color:red"> Login Failed! </h2>
+        }
+    }
+    else
+    {
+        if (curUser != null)
+        {
+            <h2 style="color:blue"> You are already logged in, @curUser.Username </h2>
+        }
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+     @*   <h4>User</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

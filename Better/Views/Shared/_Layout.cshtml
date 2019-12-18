@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Better.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,8 +27,15 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 </ul>*@
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Signup", "Signup", "User")</li>
-                    <li>@Html.ActionLink("Login", "Login", "User")</li>
+                    @if(SessionData.Get<User>("CurUser") == null)
+                    {
+                        <li>@Html.ActionLink("Signup", "Signup", "User")</li>
+                        <li>@Html.ActionLink("Login", "Login", "User")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Signout", "Signoff", "User")</li>
+                    }
                 </ul>
             </div>
         </div>

@@ -1,0 +1,9 @@
+﻿@model Better.Models.User
+
+<div>
+    <h1>@Html.DisplayFor(model => model.Username).</h1>
+</div>
+<p>
+    @Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id })
+    @*@Html.ActionLink("Back to List", "Index")*@
+</p>

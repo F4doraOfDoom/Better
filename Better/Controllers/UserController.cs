@@ -20,15 +20,46 @@ namespace Better.Controllers
             return View(user);
         }
 
-        public ActionResult Signup(User newUser)
+        public ActionResult Login(LoginAttempt login)
         {
             if (Request.HttpMethod == "POST")
             {
+                User dbUser = _context.Users.SingleOrDefault(m => m.Username == login.User.Username);
 
+                if (dbUser.Password == login.User.Password)
+                {
+                    SessionData.Put("CurUser", dbUser);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    //SessionData.Put("LoginAttempt", new LoginAttempt { Success = false });
+                    return View(new LoginAttempt { Success = false });
+                }
             }
 
             return View();
         }
 
+        public ActionResult Signup(User newUser)
+        {
+            if (Request.HttpMethod == "POST")
+            {
+                _context.Users.Add(newUser);
+                _context.SaveChanges();
+                SessionData.Put("CurUser", newUser);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        public ActionResult Signoff()
+        {
+            SessionData.Put("CurUser", null);
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
