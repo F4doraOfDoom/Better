@@ -20,5 +20,15 @@ namespace Better.Controllers
             return View(user);
         }
 
+        public ActionResult Signup(User newUser)
+        {
+            if (Request.HttpMethod == "POST")
+            {
+
+            }
+
+            return View();
+        }
+
     }
 }
