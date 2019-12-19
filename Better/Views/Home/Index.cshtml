@@ -2,15 +2,16 @@
     ViewBag.Title = "Home Page";
 }
 
+@using Better.Models.Constants;
+@using Better.Models;
+
 @model ICollection<User>
 
-@using Better.Models
-
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="height:100vh;overflow:scroll">
     <h1>Welcome to Better, </h1>
     <p class="lead">
         @{
-            User curUser = SessionData.Get<User>("CurUser");
+            User curUser = SessionData.Get<User>(Better.Models.Constants.Session.CurrentUser);
             if (curUser != null)
             {
                 Html.RenderPartial("DisplayUser", curUser);

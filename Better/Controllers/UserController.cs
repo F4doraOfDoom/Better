@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using Better.Controllers;
+using Better.Models.Constants;
 
 namespace Better.Controllers
 {
@@ -28,7 +29,7 @@ namespace Better.Controllers
 
                 if (dbUser.Password == login.User.Password)
                 {
-                    SessionData.Put("CurUser", dbUser);
+                    SessionData.Put(Models.Constants.Session.CurrentUser, dbUser);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -41,23 +42,66 @@ namespace Better.Controllers
             return View();
         }
 
-        public ActionResult Signup(User newUser)
+        public ActionResult Edit(User user)
         {
+            var curUser = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
+            if (curUser == null)
+            {
+                return HttpNotFound();
+            }
+            
             if (Request.HttpMethod == "POST")
             {
-                _context.Users.Add(newUser);
-                _context.SaveChanges();
-                SessionData.Put("CurUser", newUser);
+                var userInDb = _context.Users.Single(m => m.Id == curUser.Id);
+
+                Save(user, false);
+                SessionData.Put(Models.Constants.Session.CurrentUser, user);
 
                 return RedirectToAction("Index", "Home");
             }
+            else
+            {
+                return View(curUser);
+            }
+        }
 
-            return View();
+        private void Save(User user, bool isNew)
+        {
+            if (isNew)
+            {
+                _context.Users.Add(user);
+            }
+            else
+            {
+                var userInDb = _context.Users.Single(m => m.Id == user.Id);
+
+                //userInDb.Id = user.Id;
+                userInDb.Username = user.Username;
+                userInDb.Password = user.Password;
+                userInDb.Email = user.Email;
+            }
+
+            _context.SaveChanges();
+        }
+
+        public ActionResult UserForm(User newUser)
+        {
+            if (Request.HttpMethod == "POST")
+            {
+                Save(newUser, true);
+                SessionData.Put(Models.Constants.Session.CurrentUser, newUser);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult Signoff()
         {
-            SessionData.Put("CurUser", null);
+            SessionData.Put(Models.Constants.Session.CurrentUser, null);
 
             return RedirectToAction("Index", "Home");
         }

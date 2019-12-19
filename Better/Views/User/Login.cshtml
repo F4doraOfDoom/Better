@@ -4,7 +4,7 @@
 
 
 @{
-    var curUser = SessionData.Get<User>("CurUser");
+    var curUser = SessionData.Get<User>(Better.Models.Constants.Session.CurrentUser);
     if (Model != null) // if model is null, user hasn't tried to login yet.
     {
         if (Model.Success == false) // user logged in, but credentials are wrong

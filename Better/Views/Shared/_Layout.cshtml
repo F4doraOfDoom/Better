@@ -27,7 +27,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 </ul>*@
                 <ul class="nav navbar-nav navbar-right">
-                    @if(SessionData.Get<User>("CurUser") == null)
+                    @if(SessionData.Get<User>(Better.Models.Constants.Session.CurrentUser) == null)
                     {
                         <li>@Html.ActionLink("Signup", "Signup", "User")</li>
                         <li>@Html.ActionLink("Login", "Login", "User")</li>
