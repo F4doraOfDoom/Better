@@ -1,8 +1,9 @@
 ﻿@model Better.Models.User
 
 <div>
-    <h1>@Html.DisplayFor(model => model.Username).</h1>
+    <h1 class="display-3">@Html.DisplayFor(model => model.Username).</h1>
 </div>
+
 <p>
     @Html.ActionLink("Edit Profile", "Edit", "User", null, null)
     @*@Html.ActionLink("Back to List", "Index")*@

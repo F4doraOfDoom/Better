@@ -1,0 +1,21 @@
+﻿@model  IEnumerable<Better.Models.Post>
+
+<div>
+    <table style="width:100%">
+        <tr>
+            <th>Id</th>
+            <th>Content</th>
+            <th>CreationDate</th>
+        </tr>
+        @foreach (var post in Model)
+        {
+            
+            <tr>
+                <td>@post.PostId</td>
+                <td>@post.Content</td>
+                <td>@post.CreationDate.ToShortDateString()</td>
+            </tr>
+        }
+    </table>
+</div>
+

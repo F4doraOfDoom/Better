@@ -17,6 +17,9 @@ namespace Better.Controllers
         public ActionResult ShowUsers(string userName)
         {
             User user = _context.Users.SingleOrDefault(u => u.Username == userName);
+            var posts = _context.Posts.ToList().FindAll(p => p.UserId == user.Id);
+
+            user.Posts = posts;
 
             return View(user);
         }
@@ -27,7 +30,7 @@ namespace Better.Controllers
             {
                 User dbUser = _context.Users.SingleOrDefault(m => m.Username == login.User.Username);
 
-                if (dbUser.Password == login.User.Password)
+                if (dbUser != null && dbUser.Password == login.User.Password)
                 {
                     SessionData.Put(Models.Constants.Session.CurrentUser, dbUser);
                     return RedirectToAction("Index", "Home");
@@ -40,6 +43,23 @@ namespace Better.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult AddPost(Post post)
+        {
+            User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
+            User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
+
+
+            post.UserId = creator.Id;
+            post.CreationDate = DateTime.Now;
+
+            _context.Posts.Add(post);
+
+            TryUpdateModel(creator);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home", null);
         }
 
         public ActionResult Edit(User user)
@@ -88,8 +108,11 @@ namespace Better.Controllers
         {
             if (Request.HttpMethod == "POST")
             {
-                Save(newUser, true);
-                SessionData.Put(Models.Constants.Session.CurrentUser, newUser);
+                if (_context.Users.Count(m => m.Username == newUser.Username) == 0)
+                {
+                    Save(newUser, true);
+                    SessionData.Put(Models.Constants.Session.CurrentUser, newUser);
+                }
 
                 return RedirectToAction("Index", "Home");
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 
 using Better.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Better.Models
 {
@@ -13,6 +14,10 @@ namespace Better.Models
         public User User { get; set; }
 
         public int PostId { get; set; }
+
+        [Required]
         public string Content { get; set; }
+
+        public DateTime CreationDate { get; set; }
     }
 }

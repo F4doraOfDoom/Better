@@ -8,20 +8,23 @@
 @model ICollection<User>
 
 <div class="jumbotron text-center" style="height:100vh;overflow:scroll">
-    <h1>Welcome to Better, </h1>
-    <p class="lead">
+    <h1 class="display-3">Welcome to Better, </h1>
+    <p class="lead" align="center">
         @{
             User curUser = SessionData.Get<User>(Better.Models.Constants.Session.CurrentUser);
             if (curUser != null)
             {
                 Html.RenderPartial("DisplayUser", curUser);
+                <h2> Whats on your mind? </h2>
+                Html.RenderPartial("NewPostTextBox", new Post { });
             }
             else
             {
-                <p class="text-capitalize"> Why not sign up and become part of the world's leading social network?</p>
+                <p class="text-capitalize display-4"> Why not sign up and become part of the world's leading social network?</p>
             }
-
-
+            }
+    
+        @{ 
             if (Model.Count() != 0)
             {
                     <h2>Join our list of users:</h2>

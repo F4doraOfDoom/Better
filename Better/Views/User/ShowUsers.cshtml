@@ -4,10 +4,9 @@
     ViewBag.Title = "ShowUsers";
 }
 
-<h2>ShowUsers</h2>
+<h2>@Model.Username's Information:</h2>
 
 <div>
-    <h4>User</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -35,5 +34,9 @@
         </dd>
 
     </dl>
+
+    <h2>Posts made by @Model.Username:</h2>
+
+    @Html.Partial("ShowPosts", Model.Posts)
 </div>
 
