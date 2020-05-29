@@ -50,14 +50,34 @@ namespace Better.Controllers
             User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
             User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
 
-
             post.UserId = creator.Id;
             post.CreationDate = DateTime.Now;
 
             _context.Posts.Add(post);
-
             TryUpdateModel(creator);
-            _context.SaveChanges();
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                Exception exception = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+
+                        //create a new exception inserting the current one
+                        //as the InnerException
+                        exception = new InvalidOperationException(message, exception);
+                    }
+                }
+                throw exception;
+            }
 
             return RedirectToAction("Index", "Home", null);
         }

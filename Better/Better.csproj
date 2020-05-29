@@ -225,6 +225,7 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Shared\NewPostTextBox.cshtml" />
     <Content Include="Views\User\ShowPosts.cshtml" />
+    <Content Include="Views\Shared\PostedBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

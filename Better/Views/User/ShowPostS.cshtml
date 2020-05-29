@@ -1,7 +1,7 @@
 ﻿@model  IEnumerable<Better.Models.Post>
 
 <div>
-    <table style="width:100%">
+    @*<table style="width:100%">
         <tr>
             <th>Id</th>
             <th>Content</th>
@@ -16,6 +16,11 @@
                 <td>@post.CreationDate.ToShortDateString()</td>
             </tr>
         }
-    </table>
+    </table>*@
+    @foreach (var post in Model)
+    {
+        Html.RenderPartial("PostedBox", post);
+        <br/>
+    }
 </div>
 
