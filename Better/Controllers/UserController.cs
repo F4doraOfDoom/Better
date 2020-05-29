@@ -46,6 +46,26 @@ namespace Better.Controllers
             return View();
         }
 
+        public ActionResult DeletePost(int postId)
+        {
+            User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
+
+            //User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
+            foreach (var post in _context.Posts)
+            {
+                if (post.PostId == postId)
+                {
+                    _context.Posts.Remove(post);
+                    break;
+                }
+            }
+
+            //TryUpdateModel(creator);
+            _SaveModel();
+
+            return RedirectToAction("ShowUsers", "User", new { userName = creatorInSession.Username });
+        }
+
         public ActionResult FileUpload(HttpPostedFileBase file)
         {
             if (file != null)

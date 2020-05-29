@@ -1,4 +1,7 @@
 ﻿@model Better.Models.Post
+@using Better.Models
+@using Better.Models.Constants
+
 
 <div class="card gedf-card">
     <div class="card-header">
@@ -39,8 +42,17 @@
                 var img = new FileInfo(Model.Content);
                 <img src="@Url.Content(String.Format("~/Content/{0}/{1}", Model.UserId, img.Name))" />
             }
+            @{ 
+                User creatorInSession = SessionData.Get<User>
+                (Better.Models.Constants.Session.CurrentUser);
 
-        </a>
+                if (creatorInSession != null && creatorInSession.Id == Model.UserId)
+                {
+                    @Html.ActionLink("Delete", "DeletePost", "User", new { postId = Model.PostId }, null);
+                }
+            }
+</a>
+
         @*<p class="card-text">
             @Model.Content
         </p>*@

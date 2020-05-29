@@ -1,25 +1,13 @@
 ﻿@model  IEnumerable<Better.Models.Post>
+@using Better.Models
+@using Better.Models.Constants
 
 <div>
-    @*<table style="width:100%">
-        <tr>
-            <th>Id</th>
-            <th>Content</th>
-            <th>CreationDate</th>
-        </tr>
-        @foreach (var post in Model)
-        {
-            
-            <tr>
-                <td>@post.PostId</td>
-                <td>@post.Content</td>
-                <td>@post.CreationDate.ToShortDateString()</td>
-            </tr>
-        }
-    </table>*@
     @foreach (var post in Model)
     {
         Html.RenderPartial("PostedBox", post);
+
+     
         <br/>
     }
 </div>
