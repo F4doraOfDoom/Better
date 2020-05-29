@@ -33,15 +33,28 @@
     <div class="card-body">
         <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>Posted at @Model.CreationDate.ToLongDateString()</div>
         <a class="card-link" href="#">
-            @if (Model.Type == 0)
-            {
-                <h5 class="card-title">@Model.Content</h5>
-            }
-            else
-            {
+            @{
                 var img = new FileInfo(Model.Content);
-                <img src="@Url.Content(String.Format("~/Content/{0}/{1}", Model.UserId, img.Name))" />
+                if (Model.Type == 0)
+                {
+                    <h5 class="card-title">@Model.Content</h5>
+                }
+                else if (Model.Type == 1)
+                {
+                    <img src="@Url.Content(String.Format("~/Content/{0}/{1}", Model.UserId, img.Name))" />
+                }
+                else if (Model.Type == 2)
+                {
+                    <video src="@Url.Content(String.Format("~/Content/{0}/{1}", Model.UserId, img.Name))" controls preload="auto" />
+                }
+                else if (Model.Type == 3)
+                {
+                    <audio src="@Url.Content(String.Format("~/Content/{0}/{1}", Model.UserId, img.Name))" controls preload="auto" />
+                }
             }
+
+
+
             @{ 
                 User creatorInSession = SessionData.Get<User>
                 (Better.Models.Constants.Session.CurrentUser);

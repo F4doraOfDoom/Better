@@ -105,7 +105,8 @@ namespace Better.Controllers
                 post.UserId = creator.Id;
                 post.Content = path;
                 post.CreationDate = DateTime.Now;
-                post.Type = 1;
+                post.Type = System.IO.Path.GetExtension(file.FileName) == ".mp4" ? 2 :
+                    (System.IO.Path.GetExtension(file.FileName) == ".mp3" ? 3 : 1);
 
                 _context.Posts.Add(post);
                 TryUpdateModel(creator);
