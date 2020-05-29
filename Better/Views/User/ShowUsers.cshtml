@@ -1,4 +1,6 @@
 ﻿@model Better.Models.User
+@using Better.Models
+@using Better.Models.Constants
 
 @{
     ViewBag.Title = "ShowUsers";
@@ -38,5 +40,16 @@
     <h2>Posts made by @Model.Username:</h2>
 
     @Html.Partial("ShowPosts", Model.Posts)
+
+    @{
+        User creatorInSession = SessionData.Get<User>
+        (Better.Models.Constants.Session.CurrentUser);
+
+        if (creatorInSession != null && (creatorInSession.Username == "admin" || creatorInSession.Id == Model.Id))
+        {
+            //@Html.ActionLink("Delete", "DeletePost", "User", new { postId = Model.PostId }, null);
+            @Html.ActionLink("DELETE THIS USER", "DeleteUser", "User", new { userId = Model.Id }, null);
+        }
+    }   
 </div>
 

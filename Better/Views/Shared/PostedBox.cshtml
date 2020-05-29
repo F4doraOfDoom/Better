@@ -34,21 +34,23 @@
         <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>Posted at @Model.CreationDate.ToLongDateString()</div>
         <a class="card-link" href="#">
             @{
-                var img = new FileInfo(Model.Content);
                 if (Model.Type == 0)
                 {
                     <h5 class="card-title">@Model.Content</h5>
                 }
                 else if (Model.Type == 1)
                 {
+                    var img = new FileInfo(Model.Content);
                     <img src="@Url.Content(String.Format("~/Content/{0}/{1}", Model.UserId, img.Name))" />
                 }
                 else if (Model.Type == 2)
                 {
+                    var img = new FileInfo(Model.Content);
                     <video src="@Url.Content(String.Format("~/Content/{0}/{1}", Model.UserId, img.Name))" controls preload="auto" />
                 }
                 else if (Model.Type == 3)
                 {
+                    var img = new FileInfo(Model.Content);
                     <audio src="@Url.Content(String.Format("~/Content/{0}/{1}", Model.UserId, img.Name))" controls preload="auto" />
                 }
             }
@@ -56,10 +58,9 @@
 
 
             @{ 
-                User creatorInSession = SessionData.Get<User>
-                (Better.Models.Constants.Session.CurrentUser);
+                User creatorInSession = SessionData.Get<User>(Better.Models.Constants.Session.CurrentUser);
 
-                if (creatorInSession != null && creatorInSession.Id == Model.UserId)
+                if (creatorInSession != null && (creatorInSession.Username == "admin" || creatorInSession.Id == Model.UserId))
                 {
                     @Html.ActionLink("Delete", "DeletePost", "User", new { postId = Model.PostId }, null);
                 }

@@ -66,6 +66,26 @@ namespace Better.Controllers
             return RedirectToAction("ShowUsers", "User", new { userName = creatorInSession.Username });
         }
 
+        public ActionResult DeleteUser(int userId)
+        {
+            User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
+
+            //User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
+            foreach (var user in _context.Users)
+            {
+                if (user.Id == userId)
+                {
+                    _context.Users.Remove(user);
+                    break;
+                }
+            }
+
+            //TryUpdateModel(creator);
+            _SaveModel();
+
+            return Redirect(Url.Content("~/"));
+        }
+
         public ActionResult FileUpload(HttpPostedFileBase file)
         {
             if (file != null)
@@ -114,8 +134,10 @@ namespace Better.Controllers
                 _SaveModel();
             }
             // after successfully uploading redirect the user
-            return RedirectToAction("Index", "Home", null);
+            return RedirectToAction("Index", "Home");
         }
+
+
 
         private void _SaveModel()
         {

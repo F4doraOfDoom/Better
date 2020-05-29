@@ -7,10 +7,26 @@
 <h2>Signup</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+    <script>
+            function ValidateEmail(inputText)
+            {
+                var element = document.getElementById("email").value;
+                var format = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if (element.match(format))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+    </script>
+
     <div class="form-horizontal">
         <h4>User</h4>
         <hr />
@@ -34,14 +50,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id="email" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" onsubmit="ValidateEmail(document.form.email)"/>
             </div>
         </div>
     </div>
