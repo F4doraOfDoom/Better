@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 using Better.Controllers;
 using Better.Models.Constants;
+using System.IO;
 
 namespace Better.Controllers
 {
@@ -43,6 +44,43 @@ namespace Better.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult FileUpload(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
+                string images_root = System.IO.Path.Combine(Server.MapPath("~/Content"), creatorInSession.Username);
+                if (!System.IO.File.Exists(images_root))
+                {
+                    System.IO.Directory.CreateDirectory(images_root);
+                }
+
+                string path = System.IO.Path.Combine(
+                                       images_root, pic);
+                
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+
+                // file is uploaded
+                file.SaveAs(path);
+
+                // save the image path path to the database or you can send image 
+                // directly to database
+                // in-case if you want to store byte[] ie. for DB
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    byte[] array = ms.GetBuffer();
+                }
+
+            }
+            // after successfully uploading redirect the user
+            return RedirectToAction("actionname", "controller name");
         }
 
         public ActionResult AddPost(Post post)
