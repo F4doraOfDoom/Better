@@ -52,7 +52,7 @@ namespace Better.Controllers
             {
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
-                string images_root = System.IO.Path.Combine(Server.MapPath("~/Content"), creatorInSession.Username);
+                string images_root = System.IO.Path.Combine(Server.MapPath("~/Content"), creatorInSession.Id.ToString());
                 if (!System.IO.File.Exists(images_root))
                 {
                     System.IO.Directory.CreateDirectory(images_root);
@@ -78,22 +78,26 @@ namespace Better.Controllers
                     byte[] array = ms.GetBuffer();
                 }
 
+                User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
+                Post post = new Post();
+
+
+                post.UserId = creator.Id;
+                post.Content = path;
+                post.CreationDate = DateTime.Now;
+                post.Type = 1;
+
+                _context.Posts.Add(post);
+                TryUpdateModel(creator);
+
+                _SaveModel();
             }
             // after successfully uploading redirect the user
-            return RedirectToAction("actionname", "controller name");
+            return RedirectToAction("Index", "Home", null);
         }
 
-        public ActionResult AddPost(Post post)
+        private void _SaveModel()
         {
-            User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
-            User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
-
-            post.UserId = creator.Id;
-            post.CreationDate = DateTime.Now;
-
-            _context.Posts.Add(post);
-            TryUpdateModel(creator);
-
             try
             {
                 _context.SaveChanges();
@@ -116,6 +120,21 @@ namespace Better.Controllers
                 }
                 throw exception;
             }
+        }
+
+        public ActionResult AddPost(Post post)
+        {
+            User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
+            User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
+
+            post.UserId = creator.Id;
+            post.CreationDate = DateTime.Now;
+            post.Type = 0;
+
+            _context.Posts.Add(post);
+            TryUpdateModel(creator);
+
+            _SaveModel();
 
             return RedirectToAction("Index", "Home", null);
         }
