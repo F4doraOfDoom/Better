@@ -86,6 +86,26 @@ namespace Better.Controllers
             return Redirect(Url.Content("~/"));
         }
 
+        public ActionResult AddFriend(int userId)
+        {
+            User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
+
+            User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
+            User friend = _context.Users.Single(u => u.Id == userId);
+
+            if (creator.Friends == null)
+            {
+                creator.Friends = new List<User>();
+            }
+            creator.Friends.Add(friend);
+
+            TryUpdateModel(creator);
+            _SaveModel();
+
+            return RedirectToAction("ShowUsers", "User", new { userName = creatorInSession.Username });
+
+        }
+
         public ActionResult FileUpload(HttpPostedFileBase file)
         {
             if (file != null)

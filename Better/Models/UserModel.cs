@@ -27,5 +27,7 @@ namespace Better.Models
         public string Email { get; set; }
 
         public ICollection<Post> Posts { get; set; }
+
+        public ICollection<User> Friends { get; set; }
     }
 }

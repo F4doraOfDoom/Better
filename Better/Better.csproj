@@ -176,6 +176,10 @@
     <Compile Include="Migrations\202005291510566_add_post_type.designer.cs">
       <DependentUpon>202005291510566_add_post_type.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005300435438_add-friends-list.cs" />
+    <Compile Include="Migrations\202005300435438_add-friends-list.designer.cs">
+      <DependentUpon>202005300435438_add-friends-list.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\DB.cs" />
@@ -259,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005291510566_add_post_type.resx">
       <DependentUpon>202005291510566_add_post_type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005300435438_add-friends-list.resx">
+      <DependentUpon>202005300435438_add-friends-list.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -35,6 +35,17 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
 
+        <dd>
+        @{
+            User creatorInSession = SessionData.Get<User>(Better.Models.Constants.Session.CurrentUser);
+
+            if (creatorInSession != null && creatorInSession.Id != Model.Id)
+            {
+                @Html.ActionLink("Add as a friend", "AddFriend", "User", new { userId = Model.Id }, null);
+            }
+        }
+        </dd>
+
     </dl>
 
     <h2>Posts made by @Model.Username:</h2>
@@ -42,8 +53,7 @@
     @Html.Partial("ShowPosts", Model.Posts)
 
     @{
-        User creatorInSession = SessionData.Get<User>
-        (Better.Models.Constants.Session.CurrentUser);
+        //User creatorInSession = SessionData.Get<User>(Better.Models.Constants.Session.CurrentUser);
 
         if (creatorInSession != null && (creatorInSession.Username == "admin" || creatorInSession.Id == Model.Id))
         {
