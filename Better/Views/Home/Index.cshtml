@@ -23,18 +23,51 @@
                 <p class="text-capitalize display-4"> Why not sign up and become part of the world's leading social network?</p>
             }
             }
-    
-        @{ 
+
+    <p class="lead" align="center">
+        @{
+            curUser = SessionData.Get<User>(Better.Models.Constants.Session.CurrentUser);
+            if (curUser != null)
+            {
+                var friendsPosts = new List<Post>();
+                var friends = Better.Controllers.UserController.dbContext.Users.Single(u => u.Id == curUser.Id);
+                if (friends != null && friends.Friends != null)
+                {
+
+
+
+                    foreach (var friend in friends.Friends)
+                    {
+                        //Better.Controllers.UserController.dbContext.Posts.Where(u => u.UserId == friend.Id);
+                        if (friend.Posts != null)
+                        {
+                            friendsPosts.AddRange(friend.Posts);
+                        }
+                    }
+
+                <h2> Check out what your friends are doing: </h2>
+
+                        friendsPosts.OrderBy(o => o.CreationDate);
+                        foreach (var post in friendsPosts)
+                        {
+                            Html.RenderPartial("PostedBox", post);
+                        }
+                    }
+                }
+            }
+    </Post>
+
+        @{
             if (Model.Count() != 0)
             {
-                    <h2>Join our list of users:</h2>
-                <div style=";height:200px;width:1000px;overflow:scroll;">
-                    @foreach (var user in Model)
-                    {
-                        @Html.ActionLink(user.Username, "ShowUsers", "User", new { userName = user.Username }, null);
-                        <br/>
-                    }
-                </div>
+                <h2>Join our list of users:</h2>
+                    <div style=";height:200px;width:1000px;overflow:scroll;">
+                        @foreach (var user in Model)
+                        {
+                            @Html.ActionLink(user.Username, "ShowUsers", "User", new { userName = user.Username }, null);
+                            <br />
+                        }
+                    </div>
             }
             else
             {

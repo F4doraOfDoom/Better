@@ -13,12 +13,12 @@ namespace Better.Controllers
 {
     public class UserController : Controller
     {
-        private CoolDB _context = new CoolDB();
+        public static CoolDB dbContext { get; } = new CoolDB();
 
         public ActionResult ShowUsers(string userName)
         {
-            User user = _context.Users.SingleOrDefault(u => u.Username == userName);
-            var posts = _context.Posts.ToList().FindAll(p => p.UserId == user.Id);
+            User user = dbContext.Users.SingleOrDefault(u => u.Username == userName);
+            var posts = dbContext.Posts.ToList().FindAll(p => p.UserId == user.Id);
 
             user.Posts = posts;
 
@@ -29,7 +29,7 @@ namespace Better.Controllers
         {
             if (Request.HttpMethod == "POST")
             {
-                User dbUser = _context.Users.SingleOrDefault(m => m.Username == login.User.Username);
+                User dbUser = dbContext.Users.SingleOrDefault(m => m.Username == login.User.Username);
 
                 if (dbUser != null && dbUser.Password == login.User.Password)
                 {
@@ -51,11 +51,11 @@ namespace Better.Controllers
             User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
 
             //User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
-            foreach (var post in _context.Posts)
+            foreach (var post in dbContext.Posts)
             {
                 if (post.PostId == postId)
                 {
-                    _context.Posts.Remove(post);
+                    dbContext.Posts.Remove(post);
                     break;
                 }
             }
@@ -71,11 +71,11 @@ namespace Better.Controllers
             User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
 
             //User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
-            foreach (var user in _context.Users)
+            foreach (var user in dbContext.Users)
             {
                 if (user.Id == userId)
                 {
-                    _context.Users.Remove(user);
+                    dbContext.Users.Remove(user);
                     break;
                 }
             }
@@ -90,14 +90,17 @@ namespace Better.Controllers
         {
             User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
 
-            User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
-            User friend = _context.Users.Single(u => u.Id == userId);
+            User creator = dbContext.Users.Single(u => u.Username == creatorInSession.Username);
+            User friend = dbContext.Users.Single(u => u.Id == userId);
 
             if (creator.Friends == null)
             {
                 creator.Friends = new List<User>();
             }
+
             creator.Friends.Add(friend);
+
+            SessionData.Put(Models.Constants.Session.CurrentUser, creator);
 
             TryUpdateModel(creator);
             _SaveModel();
@@ -138,7 +141,7 @@ namespace Better.Controllers
                     byte[] array = ms.GetBuffer();
                 }
 
-                User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
+                User creator = dbContext.Users.Single(u => u.Username == creatorInSession.Username);
                 Post post = new Post();
 
 
@@ -148,7 +151,7 @@ namespace Better.Controllers
                 post.Type = System.IO.Path.GetExtension(file.FileName) == ".mp4" ? 2 :
                     (System.IO.Path.GetExtension(file.FileName) == ".mp3" ? 3 : 1);
 
-                _context.Posts.Add(post);
+                dbContext.Posts.Add(post);
                 TryUpdateModel(creator);
 
                 _SaveModel();
@@ -163,7 +166,7 @@ namespace Better.Controllers
         {
             try
             {
-                _context.SaveChanges();
+                dbContext.SaveChanges();
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
             {
@@ -188,13 +191,13 @@ namespace Better.Controllers
         public ActionResult AddPost(Post post)
         {
             User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
-            User creator = _context.Users.Single(u => u.Username == creatorInSession.Username);
+            User creator = dbContext.Users.Single(u => u.Username == creatorInSession.Username);
 
             post.UserId = creator.Id;
             post.CreationDate = DateTime.Now;
             post.Type = 0;
 
-            _context.Posts.Add(post);
+            dbContext.Posts.Add(post);
             TryUpdateModel(creator);
 
             _SaveModel();
@@ -212,7 +215,7 @@ namespace Better.Controllers
             
             if (Request.HttpMethod == "POST")
             {
-                var userInDb = _context.Users.Single(m => m.Id == curUser.Id);
+                var userInDb = dbContext.Users.Single(m => m.Id == curUser.Id);
 
                 Save(user, false);
                 SessionData.Put(Models.Constants.Session.CurrentUser, user);
@@ -229,11 +232,11 @@ namespace Better.Controllers
         {
             if (isNew)
             {
-                _context.Users.Add(user);
+                dbContext.Users.Add(user);
             }
             else
             {
-                var userInDb = _context.Users.Single(m => m.Id == user.Id);
+                var userInDb = dbContext.Users.Single(m => m.Id == user.Id);
 
                 //userInDb.Id = user.Id;
                 userInDb.Username = user.Username;
@@ -241,14 +244,14 @@ namespace Better.Controllers
                 userInDb.Email = user.Email;
             }
 
-            _context.SaveChanges();
+            dbContext.SaveChanges();
         }
 
         public ActionResult UserForm(User newUser)
         {
             if (Request.HttpMethod == "POST")
             {
-                if (_context.Users.Count(m => m.Username == newUser.Username) == 0)
+                if (dbContext.Users.Count(m => m.Username == newUser.Username) == 0)
                 {
                     Save(newUser, true);
                     SessionData.Put(Models.Constants.Session.CurrentUser, newUser);
