@@ -12,18 +12,9 @@
     @Html.AntiForgeryToken()
 
     <script>
-            function ValidateEmail(inputText)
+            function ValidateEmail()
             {
-                var element = document.getElementById("email").value;
-                var format = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-                if (element.match(format))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return (document.getElementById("email").value.match(/^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
             }
     </script>
 
