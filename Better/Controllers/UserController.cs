@@ -14,6 +14,17 @@ namespace Better.Controllers
     public class UserController : Controller
     {
         public static CoolDB dbContext { get; } = new CoolDB();
+        private static UserController _call_constructor = new UserController(); 
+
+        public UserController()
+        {
+            foreach (var user in dbContext.Users)
+            {
+                var posts = dbContext.Posts.ToList().FindAll(p => p.UserId == user.Id);
+
+                user.Posts = posts;
+            }
+        }
 
         public ActionResult ShowUsers(string userName)
         {
@@ -66,6 +77,28 @@ namespace Better.Controllers
             return RedirectToAction("ShowUsers", "User", new { userName = creatorInSession.Username });
         }
 
+        public ActionResult DeleteFriend(int userId)
+        {
+            User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
+
+            User creator = dbContext.Users.Single(u => u.Username == creatorInSession.Username);
+            if (creator.Friends != null)
+            {
+                foreach (var friend in creator.Friends)
+                {
+                    if (friend.Id == userId)
+                    {
+                        creator.Friends.Remove(friend);
+                        break;
+                    }
+                }
+            }
+
+            TryUpdateModel(creator);
+            _SaveModel();
+
+            return RedirectToAction("ShowUsers", "User", new { userName = creatorInSession.Username });
+        }
         public ActionResult DeleteUser(int userId)
         {
             User creatorInSession = SessionData.Get<User>(Models.Constants.Session.CurrentUser);
@@ -100,7 +133,7 @@ namespace Better.Controllers
 
             creator.Friends.Add(friend);
 
-            SessionData.Put(Models.Constants.Session.CurrentUser, creator);
+            //SessionData.Put(Models.Constants.Session.CurrentUser, creator);
 
             TryUpdateModel(creator);
             _SaveModel();

@@ -33,9 +33,6 @@
                 var friends = Better.Controllers.UserController.dbContext.Users.Single(u => u.Id == curUser.Id);
                 if (friends != null && friends.Friends != null)
                 {
-
-
-
                     foreach (var friend in friends.Friends)
                     {
                         //Better.Controllers.UserController.dbContext.Posts.Where(u => u.UserId == friend.Id);

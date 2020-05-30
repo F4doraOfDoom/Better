@@ -41,7 +41,18 @@
 
             if (creatorInSession != null && creatorInSession.Id != Model.Id)
             {
-                @Html.ActionLink("Add as a friend", "AddFriend", "User", new { userId = Model.Id }, null);
+                var user_friends = Better.Controllers.UserController.dbContext.Users.Single(u => u.Id == creatorInSession.Id);
+                if (user_friends != null && user_friends.Friends != null)
+                {
+                    if (user_friends.Friends.Contains(Model))
+                    {
+                        @Html.ActionLink("Unfriend", "DeleteFriend", "User", new { userId = Model.Id }, null);
+                    }
+                    else
+                    { 
+                        @Html.ActionLink("Add as a friend", "AddFriend", "User", new { userId = Model.Id }, null);
+                    }
+                }
             }
         }
         </dd>
